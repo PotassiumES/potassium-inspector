@@ -10,6 +10,8 @@ const GetKSSAction = 'getKSS'
 const PutKSSAction = 'putKSS'
 const GetStyleTreeAction = 'getStyleTree'
 const PutStyleTreeAction = 'putStyleTree'
+const ShowFlatDisplayAction = 'showFlatDisplay'
+const HideFlatDisplayAction = 'hideFlatDisplay'
 const InitAction = 'init'
 
 function handleRuntimeMessage(request, sender, sendResponse) { 
@@ -45,10 +47,10 @@ function handlePanelRuntimeMessage(request, sender, sendResponse){
 	}
 	switch(request.action){
 		case GetKSSAction:
-			handleGetKSSAction(request)
-			break
 		case GetStyleTreeAction:
-			handleGetStyleTreeAction(request)
+		case ShowFlatDisplayAction:
+		case HideFlatDisplayAction:
+			relayActionToTab(request)
 			break
 		case InitAction:
 			handleInitAction(request)
@@ -58,16 +60,8 @@ function handlePanelRuntimeMessage(request, sender, sendResponse){
 	}
 }
 
-function handleGetKSSAction(data){
-	browser.tabs.sendMessage(data.tabId, {
-		action: data.action
-	})
-}
-
-function handleGetStyleTreeAction(data){
-	browser.tabs.sendMessage(data.tabId, {
-		action: data.action
-	})
+function relayActionToTab(data){
+	browser.tabs.sendMessage(data.tabId, data)
 }
 
 function handleInitAction(data){

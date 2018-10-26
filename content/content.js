@@ -10,18 +10,16 @@ const GetKSSAction = 'getKSS'
 const PutKSSAction = 'putKSS'
 const GetStyleTreeAction = 'getStyleTree'
 const PutStyleTreeAction = 'putStyleTree'
+const ShowFlatDisplayAction = 'showFlatDisplay'
+const HideFlatDisplayAction = 'hideFlatDisplay'
 
 function handleRuntimeMessage(data, sender, sendResponse){
 	switch(data.action){
 		case GetKSSAction:
-			window.postMessage({
-				action: GetKSSAction
-			}, "*")
-			break
 		case GetStyleTreeAction:
-			window.postMessage({
-				action: GetStyleTreeAction
-			}, "*")
+		case ShowFlatDisplayAction:
+		case HideFlatDisplayAction:
+			window.postMessage(data, "*")
 			break
 	}
 }

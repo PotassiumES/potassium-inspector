@@ -11,27 +11,59 @@ const GetKSSAction = 'getKSS'
 const PutKSSAction = 'putKSS'
 const GetStyleTreeAction = 'getStyleTree'
 const PutStyleTreeAction = 'putStyleTree'
+const ShowFlatDisplayAction = 'showFlatDisplay'
+const HideFlatDisplayAction = 'hideFlatDisplay'
 const InitAction = 'init'
 
 const focusDOM = document.querySelector('.focus')
 const contextDOM = document.querySelector('.context')
 
+const somControlsDOM = document.createElement('div')
+contextDOM.appendChild(somControlsDOM)
+const somTitle = document.createElement('h2')
+somControlsDOM.appendChild(somTitle)
+somTitle.innerText = 'Display Modes'
+
 const showImmersiveButton = document.createElement('button')
-contextDOM.appendChild(showImmersiveButton)
-showImmersiveButton.innerText = 'Immersive Scene'
+somControlsDOM.appendChild(showImmersiveButton)
+showImmersiveButton.innerText = 'Immersive'
 showImmersiveButton.addEventListener('click', ev => {
-	browser.devtools.inspectedWindow.eval('app.toggleFlatDisplay()')
+	browser.runtime.sendMessage({
+		action: ShowFlatDisplayAction,
+		display: 'immersive',
+		tabId: browser.devtools.inspectedWindow.tabId
+	})
 })
 
 const showPortalButton = document.createElement('button')
-contextDOM.appendChild(showPortalButton)
-showPortalButton.innerText = 'Portal Scene'
+somControlsDOM.appendChild(showPortalButton)
+showPortalButton.innerText = 'Portal'
 showPortalButton.addEventListener('click', ev => {
-	browser.devtools.inspectedWindow.eval('app.toggleFlatDisplay(null, false)')
+	browser.runtime.sendMessage({
+		action: ShowFlatDisplayAction,
+		display: 'portal',
+		tabId: browser.devtools.inspectedWindow.tabId
+	})
 })
 
+const hideSceneButton = document.createElement('button')
+somControlsDOM.appendChild(hideSceneButton)
+hideSceneButton.innerText = 'Flat'
+hideSceneButton.addEventListener('click', ev => {
+	browser.runtime.sendMessage({
+		action: HideFlatDisplayAction,
+		tabId: browser.devtools.inspectedWindow.tabId
+	})
+})
+
+const styleControlsDOM = document.createElement('div')
+contextDOM.appendChild(styleControlsDOM)
+const styleTitle = document.createElement('h2')
+styleControlsDOM.appendChild(styleTitle)
+styleTitle.innerText = 'Styles'
+
 const getKSSButton = document.createElement('button')
-contextDOM.appendChild(getKSSButton)
+styleControlsDOM.appendChild(getKSSButton)
 getKSSButton.innerText = 'KSS'
 getKSSButton.addEventListener('click', ev => {
 	browser.runtime.sendMessage({
@@ -41,7 +73,7 @@ getKSSButton.addEventListener('click', ev => {
 })
 
 const getStyleTreeButton = document.createElement('button')
-contextDOM.appendChild(getStyleTreeButton)
+styleControlsDOM.appendChild(getStyleTreeButton)
 getStyleTreeButton.innerText = 'Computed Styles'
 getStyleTreeButton.addEventListener('click', ev => {
 	browser.runtime.sendMessage({
