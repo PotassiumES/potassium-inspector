@@ -1,0 +1,19 @@
+{
+	"description": "Creator tools for the PotassiumES application framework",
+	"manifest_version": 2,
+	"name": "potassium-inspector",
+	"version": "0.0.0-alpha0",
+	"author": "Trevor F. Smith <trevor@transmutable.com>",
+	"homepage_url": "https://github.com/potassiumes/potassium-inspector/",
+	"icons": {
+		"48": "icons/icon.png"
+	},
+	"background": {
+		"scripts": ["background/background.js"]
+	},		
+	"permissions": [
+			"<all_urls>",
+			"webNavigation"
+	],
+	"devtools_page": "devtools/devtools-page.html"
+}
