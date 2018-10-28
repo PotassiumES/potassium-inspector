@@ -15,5 +15,10 @@
 			"<all_urls>",
 			"webNavigation"
 	],
-	"devtools_page": "devtools/devtools-page.html"
+	"devtools_page": "devtools/devtools-page.html",
+	"applications": {
+		"gecko": {
+			"id": "inspector@postassiumes.org"
+		}
+	}
 }
