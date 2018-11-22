@@ -13,14 +13,18 @@ const GetStyleTreeAction = 'getStyleTree'
 const PutStyleTreeAction = 'putStyleTree'
 const ShowFlatDisplayAction = 'showFlatDisplay'
 const HideFlatDisplayAction = 'hideFlatDisplay'
+const ToggleEdgesAction = 'toggleEdges'
+
 const InitAction = 'init'
 
 const focusDOM = document.querySelector('.focus')
 const contextDOM = document.querySelector('.context')
 
 const somControlsDOM = document.createElement('div')
+somControlsDOM.setAttribute('class', 'section')
 contextDOM.appendChild(somControlsDOM)
 const somTitle = document.createElement('h2')
+somTitle.setAttribute('class', 'section-title')
 somControlsDOM.appendChild(somTitle)
 somTitle.innerText = 'Display Modes'
 
@@ -57,8 +61,10 @@ hideSceneButton.addEventListener('click', ev => {
 })
 
 const styleControlsDOM = document.createElement('div')
+styleControlsDOM.setAttribute('class', 'section')
 contextDOM.appendChild(styleControlsDOM)
 const styleTitle = document.createElement('h2')
+styleTitle.setAttribute('class', 'section-title')
 styleControlsDOM.appendChild(styleTitle)
 styleTitle.innerText = 'Styles'
 
@@ -78,6 +84,16 @@ getStyleTreeButton.innerText = 'Computed Styles'
 getStyleTreeButton.addEventListener('click', ev => {
 	browser.runtime.sendMessage({
 		action: GetStyleTreeAction,
+		tabId: browser.devtools.inspectedWindow.tabId
+	})
+})
+
+const toggleEdgesButton = document.createElement('button')
+styleControlsDOM.appendChild(toggleEdgesButton)
+toggleEdgesButton.innerText = 'Toggle Edges'
+toggleEdgesButton.addEventListener('click', ev => {
+	browser.runtime.sendMessage({
+		action: ToggleEdgesAction,
 		tabId: browser.devtools.inspectedWindow.tabId
 	})
 })

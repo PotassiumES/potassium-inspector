@@ -6,19 +6,24 @@ if(typeof browser === 'undefined'){
 	}
 }
 
-const GetKSSAction = 'getKSS'
-const PutKSSAction = 'putKSS'
-const GetStyleTreeAction = 'getStyleTree'
-const PutStyleTreeAction = 'putStyleTree'
-const ShowFlatDisplayAction = 'showFlatDisplay'
-const HideFlatDisplayAction = 'hideFlatDisplay'
+const ContentConstants = {
+	GetKSSAction: 'getKSS',
+	PutKSSAction: 'putKSS',
+	GetStyleTreeAction: 'getStyleTree',
+	PutStyleTreeAction: 'putStyleTree',
+	ShowFlatDisplayAction: 'showFlatDisplay',
+	HideFlatDisplayAction: 'hideFlatDisplay',
+	ToggleEdgesAction: 'toggleEdges'
+}
+
 
 function handleRuntimeMessage(data, sender, sendResponse){
 	switch(data.action){
-		case GetKSSAction:
-		case GetStyleTreeAction:
-		case ShowFlatDisplayAction:
-		case HideFlatDisplayAction:
+		case ContentConstants.GetKSSAction:
+		case ContentConstants.GetStyleTreeAction:
+		case ContentConstants.ShowFlatDisplayAction:
+		case ContentConstants.HideFlatDisplayAction:
+		case ContentConstants.ToggleEdgesAction:
 			window.postMessage(data, "*")
 			break
 	}
@@ -28,15 +33,15 @@ browser.runtime.onMessage.addListener(handleRuntimeMessage);
 
 function handleWindowMessage(event){
 	switch(event.data.action){
-		case PutKSSAction:
+		case ContentConstants.PutKSSAction:
 			browser.runtime.sendMessage({
-				action: PutKSSAction,
+				action: ContentConstants.PutKSSAction,
 				kss: event.data.kss
 			})
 			break
-		case PutStyleTreeAction:
+		case ContentConstants.PutStyleTreeAction:
 			browser.runtime.sendMessage({
-				action: PutStyleTreeAction,
+				action: ContentConstants.PutStyleTreeAction,
 				tree: event.data.tree
 			})
 			break

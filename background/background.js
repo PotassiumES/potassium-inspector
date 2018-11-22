@@ -12,6 +12,7 @@ const GetStyleTreeAction = 'getStyleTree'
 const PutStyleTreeAction = 'putStyleTree'
 const ShowFlatDisplayAction = 'showFlatDisplay'
 const HideFlatDisplayAction = 'hideFlatDisplay'
+const ToggleEdgesAction = 'toggleEdges'
 const InitAction = 'init'
 
 function handleRuntimeMessage(request, sender, sendResponse) { 
@@ -50,6 +51,7 @@ function handlePanelRuntimeMessage(request, sender, sendResponse){
 		case GetStyleTreeAction:
 		case ShowFlatDisplayAction:
 		case HideFlatDisplayAction:
+		case ToggleEdgesAction:
 			relayActionToTab(request)
 			break
 		case InitAction:
