@@ -8,7 +8,7 @@ if(typeof browser === 'undefined'){
 
 browser.devtools.panels.create(
 	"PotassiumES",
-	"icons/icon.png",
+	"/icons/icon.png",
 	"/devtools/panel/panel.html",
 	function(panel) {}
 )

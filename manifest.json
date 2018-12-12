@@ -13,7 +13,8 @@
 	},		
 	"permissions": [
 			"<all_urls>",
-			"webNavigation"
+			"webNavigation",
+			"activeTab"
 	],
 	"devtools_page": "devtools/devtools-page.html",
 	"applications": {
